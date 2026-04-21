@@ -1,17 +1,10 @@
 import Link from "next/link";
 
-const quickLinks = [
-  { label: "Blog", href: "/blog" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
-
 export default function Hero() {
   return (
     <section className="py-16 md:py-24">
       {/* Two-column hero */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left: text */}
         <div className="flex flex-col gap-6">
           <h1 className="brutal-heading">
@@ -68,40 +61,6 @@ export default function Hero() {
             <circle cx="210" cy="30" r="4" fill="black" stroke="none" />
             <circle cx="245" cy="75" r="3" fill="black" stroke="none" />
           </svg>
-        </div>
-      </div>
-
-      {/* Quick links */}
-      <div>
-        <h2
-          className="brutal-heading mb-6"
-          style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}
-        >
-          Quick links
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4">
-          {quickLinks.map((link, i) => (
-            <Link key={link.href} href={link.href}>
-              <div
-                className="brutal-box p-5 flex justify-between items-end cursor-pointer transition-colors duration-100 hover:bg-black hover:text-white"
-                style={{
-                  borderRight: i < quickLinks.length - 1 ? undefined : "3px solid black",
-                  marginLeft: i > 0 ? "-3px" : 0,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: '"Arial Black", Arial, sans-serif',
-                    fontWeight: 900,
-                    fontSize: "1rem",
-                  }}
-                >
-                  {link.label}
-                </span>
-                <span style={{ fontSize: "1.25rem", lineHeight: 1 }}>↗</span>
-              </div>
-            </Link>
-          ))}
         </div>
       </div>
     </section>
