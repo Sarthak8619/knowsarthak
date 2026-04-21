@@ -29,11 +29,10 @@ function NavLink({
         onClick={onClick}
         className={
           active
-            ? 'font-mono text-sm tracking-widest uppercase text-neon-green text-glow-green border-b border-neon-green pb-0.5'
-            : 'font-mono text-sm tracking-widest uppercase text-phosphor hover:text-neon-cyan hover:text-glow-cyan transition-all duration-150'
+            ? 'text-sm font-black tracking-widest uppercase text-black border-b-2 border-black pb-0.5'
+            : 'text-sm font-black tracking-widest uppercase text-black hover:underline hover:decoration-2'
         }
       >
-        {active && <span className="mr-1 text-neon-green">{'>'}</span>}
         {label}
       </Link>
     </li>
@@ -48,10 +47,10 @@ export default function Navbar() {
     href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
-    <nav className="sticky top-0 z-50 bg-terminal-dark border-b border-phosphor-dim">
+    <nav className="sticky top-0 z-50 bg-white border-b-4 border-black">
       <div className="max-w-5xl mx-auto px-6 flex items-center justify-between h-14">
         <Link href="/" className="shrink-0">
-          <span className="font-display text-2xl text-neon-green text-glow-green">
+          <span className="text-2xl font-black text-black">
             ~/portfolio
           </span>
         </Link>
@@ -68,7 +67,7 @@ export default function Navbar() {
         </ul>
 
         <button
-          className="md:hidden font-mono text-xl text-neon-cyan hover:text-glow-cyan transition-all"
+          className="md:hidden text-xl font-black text-black hover:underline"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
@@ -77,7 +76,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden bg-terminal-panel border-b border-phosphor-dim px-6 py-4">
+        <div className="md:hidden bg-white border-t-2 border-black px-6 py-4">
           <ul className="flex flex-col gap-4">
             {links.map((link) => (
               <NavLink

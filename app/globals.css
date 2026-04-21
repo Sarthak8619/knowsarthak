@@ -1,218 +1,149 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-terminal-black: #0a0a0a;
-  --color-terminal-dark:  #0d0d0d;
-  --color-terminal-panel: #111111;
-  --color-neon-green:     #00ff41;
-  --color-neon-cyan:      #00e5ff;
-  --color-neon-magenta:   #ff00ff;
-  --color-neon-yellow:    #ffff00;
-  --color-neon-orange:    #ff6600;
-  --color-phosphor:       #33ff77;
-  --color-phosphor-dim:   #1a8c3f;
-  --font-mono:    var(--font-share-tech-mono);
-  --font-display: var(--font-vt323);
+  --color-bg:     #ffffff;
+  --color-text:   #000000;
+  --color-border: #000000;
+}
+
+/* ── Base ────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
-  background-color: var(--color-terminal-black);
-  color: var(--color-phosphor);
-  font-family: var(--font-mono), monospace;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Arial Black", Arial, sans-serif;
+  font-weight: 700;
 }
 
-/* ── Neon glow text ─────────────────────────────────────── */
-.text-glow-green {
-  color: var(--color-neon-green);
-  text-shadow:
-    0 0 4px var(--color-neon-green),
-    0 0 10px var(--color-neon-green),
-    0 0 24px var(--color-neon-green),
-    0 0 48px rgba(0, 255, 65, 0.4);
+/* ── Reusable utility classes ────────────────────────────── */
+.brutal-box {
+  border: 3px solid var(--color-border);
+  background-color: var(--color-bg);
 }
 
-.text-glow-cyan {
-  color: var(--color-neon-cyan);
-  text-shadow:
-    0 0 4px var(--color-neon-cyan),
-    0 0 10px var(--color-neon-cyan),
-    0 0 24px var(--color-neon-cyan);
-}
-
-.text-glow-magenta {
-  color: var(--color-neon-magenta);
-  text-shadow:
-    0 0 4px var(--color-neon-magenta),
-    0 0 10px var(--color-neon-magenta),
-    0 0 24px var(--color-neon-magenta);
-}
-
-/* ── Neon box glow ──────────────────────────────────────── */
-.neon-box-green {
-  border: 1px solid var(--color-neon-green);
-  box-shadow:
-    0 0 4px var(--color-neon-green),
-    0 0 10px rgba(0, 255, 65, 0.3),
-    inset 0 0 8px rgba(0, 255, 65, 0.05);
-}
-
-.neon-box-cyan {
-  border: 1px solid var(--color-neon-cyan);
-  box-shadow:
-    0 0 4px var(--color-neon-cyan),
-    0 0 10px rgba(0, 229, 255, 0.3),
-    inset 0 0 8px rgba(0, 229, 255, 0.05);
-}
-
-.neon-box-magenta {
-  border: 1px solid var(--color-neon-magenta);
-  box-shadow:
-    0 0 4px var(--color-neon-magenta),
-    0 0 10px rgba(255, 0, 255, 0.3),
-    inset 0 0 8px rgba(255, 0, 255, 0.05);
-}
-
-/* ── CRT flicker ────────────────────────────────────────── */
-@keyframes crt-flicker {
-  0%   { opacity: 1; }
-  92%  { opacity: 1; }
-  93%  { opacity: 0.96; }
-  94%  { opacity: 1; }
-  97%  { opacity: 0.98; }
-  100% { opacity: 1; }
-}
-
-.crt-flicker {
-  animation: crt-flicker 8s infinite;
-}
-
-/* ── Blinking cursor ────────────────────────────────────── */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-.cursor-blink {
+.brutal-button {
+  border: 3px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Arial Black", Arial, sans-serif;
+  font-weight: 700;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
   display: inline-block;
-  width: 0.6ch;
-  height: 1em;
-  background: var(--color-neon-green);
-  animation: blink 1s step-start infinite;
-  vertical-align: text-bottom;
-  margin-left: 1px;
+  text-decoration: none;
+  transition: background-color 0.1s, color 0.1s;
 }
 
-/* ── Blog prose styles ──────────────────────────────────── */
-.prose-retro h1,
-.prose-retro h2,
-.prose-retro h3 {
-  font-family: var(--font-display), monospace;
-  color: var(--color-neon-green);
+.brutal-button:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.brutal-heading {
+  font-family: "Arial Black", Arial, sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.brutal-nav {
+  border-bottom: 3px solid var(--color-border);
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  height: 3.5rem;
+}
+
+/* ── Prose styles ────────────────────────────────────────── */
+.prose-brutal h1,
+.prose-brutal h2,
+.prose-brutal h3 {
+  font-family: "Arial Black", Arial, sans-serif;
+  font-weight: 900;
+  color: var(--color-text);
   margin: 1.5rem 0 0.75rem;
 }
 
-.prose-retro h1 { font-size: 2rem; }
-.prose-retro h2 { font-size: 1.5rem; }
-.prose-retro h3 { font-size: 1.25rem; }
+.prose-brutal h1 { font-size: 2rem; }
+.prose-brutal h2 { font-size: 1.5rem; }
+.prose-brutal h3 { font-size: 1.25rem; }
 
-.prose-retro p {
-  color: var(--color-phosphor);
+.prose-brutal p {
+  color: var(--color-text);
   line-height: 1.75;
   margin-bottom: 1rem;
+  font-weight: 400;
+  font-family: Arial, sans-serif;
 }
 
-.prose-retro a {
-  color: var(--color-neon-cyan);
+.prose-brutal a {
+  color: var(--color-text);
   text-decoration: underline;
-  text-decoration-color: rgba(0, 229, 255, 0.4);
+  text-decoration-thickness: 2px;
 }
 
-.prose-retro a:hover {
-  text-shadow: 0 0 6px var(--color-neon-cyan);
-}
-
-.prose-retro ul,
-.prose-retro ol {
+.prose-brutal ul,
+.prose-brutal ol {
   padding-left: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--color-phosphor);
+  color: var(--color-text);
+  font-family: Arial, sans-serif;
 }
 
-.prose-retro li { margin-bottom: 0.25rem; }
+.prose-brutal li { margin-bottom: 0.25rem; }
 
-.prose-retro code {
-  font-family: var(--font-mono), monospace;
-  background: var(--color-terminal-panel);
-  color: var(--color-neon-cyan);
+.prose-brutal code {
+  font-family: monospace;
+  background: #f0f0f0;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
   padding: 0.1em 0.35em;
-  border-radius: 3px;
   font-size: 0.9em;
 }
 
-.prose-retro pre {
-  background: var(--color-terminal-panel);
-  border: 1px solid var(--color-phosphor-dim);
-  border-radius: 4px;
+.prose-brutal pre {
+  background: #f0f0f0;
+  border: 2px solid var(--color-border);
   padding: 1rem;
   overflow-x: auto;
   margin-bottom: 1rem;
 }
 
-.prose-retro pre code {
+.prose-brutal pre code {
   background: transparent;
+  border: none;
   padding: 0;
-  color: var(--color-phosphor);
 }
 
-.prose-retro blockquote {
-  border-left: 3px solid var(--color-neon-magenta);
+.prose-brutal blockquote {
+  border-left: 4px solid var(--color-border);
   padding-left: 1rem;
-  color: var(--color-phosphor-dim);
+  color: #444;
   font-style: italic;
   margin: 1rem 0;
+  font-family: Arial, sans-serif;
 }
 
-.prose-retro table {
+.prose-brutal table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1rem;
 }
 
-.prose-retro th,
-.prose-retro td {
-  border: 1px solid var(--color-phosphor-dim);
+.prose-brutal th,
+.prose-brutal td {
+  border: 2px solid var(--color-border);
   padding: 0.5rem 0.75rem;
   text-align: left;
 }
 
-.prose-retro th {
-  background: var(--color-terminal-panel);
-  color: var(--color-neon-cyan);
-}
-
-/* ── Scanline overlay ───────────────────────────────────── */
-.scanlines-overlay {
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.15) 2px,
-    rgba(0, 0, 0, 0.15) 4px
-  );
-  pointer-events: none;
-  z-index: 50;
-}
-
-.crt-vignette {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 60%,
-    rgba(0, 0, 0, 0.7) 100%
-  );
-  pointer-events: none;
-  z-index: 49;
+.prose-brutal th {
+  background: #f0f0f0;
+  font-family: "Arial Black", Arial, sans-serif;
 }
