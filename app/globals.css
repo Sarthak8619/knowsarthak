@@ -1,26 +1,218 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-terminal-black: #0a0a0a;
+  --color-terminal-dark:  #0d0d0d;
+  --color-terminal-panel: #111111;
+  --color-neon-green:     #00ff41;
+  --color-neon-cyan:      #00e5ff;
+  --color-neon-magenta:   #ff00ff;
+  --color-neon-yellow:    #ffff00;
+  --color-neon-orange:    #ff6600;
+  --color-phosphor:       #33ff77;
+  --color-phosphor-dim:   #1a8c3f;
+  --font-mono:    var(--font-share-tech-mono);
+  --font-display: var(--font-vt323);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-terminal-black);
+  color: var(--color-phosphor);
+  font-family: var(--font-mono), monospace;
+}
+
+/* ── Neon glow text ─────────────────────────────────────── */
+.text-glow-green {
+  color: var(--color-neon-green);
+  text-shadow:
+    0 0 4px var(--color-neon-green),
+    0 0 10px var(--color-neon-green),
+    0 0 24px var(--color-neon-green),
+    0 0 48px rgba(0, 255, 65, 0.4);
+}
+
+.text-glow-cyan {
+  color: var(--color-neon-cyan);
+  text-shadow:
+    0 0 4px var(--color-neon-cyan),
+    0 0 10px var(--color-neon-cyan),
+    0 0 24px var(--color-neon-cyan);
+}
+
+.text-glow-magenta {
+  color: var(--color-neon-magenta);
+  text-shadow:
+    0 0 4px var(--color-neon-magenta),
+    0 0 10px var(--color-neon-magenta),
+    0 0 24px var(--color-neon-magenta);
+}
+
+/* ── Neon box glow ──────────────────────────────────────── */
+.neon-box-green {
+  border: 1px solid var(--color-neon-green);
+  box-shadow:
+    0 0 4px var(--color-neon-green),
+    0 0 10px rgba(0, 255, 65, 0.3),
+    inset 0 0 8px rgba(0, 255, 65, 0.05);
+}
+
+.neon-box-cyan {
+  border: 1px solid var(--color-neon-cyan);
+  box-shadow:
+    0 0 4px var(--color-neon-cyan),
+    0 0 10px rgba(0, 229, 255, 0.3),
+    inset 0 0 8px rgba(0, 229, 255, 0.05);
+}
+
+.neon-box-magenta {
+  border: 1px solid var(--color-neon-magenta);
+  box-shadow:
+    0 0 4px var(--color-neon-magenta),
+    0 0 10px rgba(255, 0, 255, 0.3),
+    inset 0 0 8px rgba(255, 0, 255, 0.05);
+}
+
+/* ── CRT flicker ────────────────────────────────────────── */
+@keyframes crt-flicker {
+  0%   { opacity: 1; }
+  92%  { opacity: 1; }
+  93%  { opacity: 0.96; }
+  94%  { opacity: 1; }
+  97%  { opacity: 0.98; }
+  100% { opacity: 1; }
+}
+
+.crt-flicker {
+  animation: crt-flicker 8s infinite;
+}
+
+/* ── Blinking cursor ────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 0.6ch;
+  height: 1em;
+  background: var(--color-neon-green);
+  animation: blink 1s step-start infinite;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+}
+
+/* ── Blog prose styles ──────────────────────────────────── */
+.prose-retro h1,
+.prose-retro h2,
+.prose-retro h3 {
+  font-family: var(--font-display), monospace;
+  color: var(--color-neon-green);
+  margin: 1.5rem 0 0.75rem;
+}
+
+.prose-retro h1 { font-size: 2rem; }
+.prose-retro h2 { font-size: 1.5rem; }
+.prose-retro h3 { font-size: 1.25rem; }
+
+.prose-retro p {
+  color: var(--color-phosphor);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.prose-retro a {
+  color: var(--color-neon-cyan);
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 229, 255, 0.4);
+}
+
+.prose-retro a:hover {
+  text-shadow: 0 0 6px var(--color-neon-cyan);
+}
+
+.prose-retro ul,
+.prose-retro ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-phosphor);
+}
+
+.prose-retro li { margin-bottom: 0.25rem; }
+
+.prose-retro code {
+  font-family: var(--font-mono), monospace;
+  background: var(--color-terminal-panel);
+  color: var(--color-neon-cyan);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.prose-retro pre {
+  background: var(--color-terminal-panel);
+  border: 1px solid var(--color-phosphor-dim);
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.prose-retro pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--color-phosphor);
+}
+
+.prose-retro blockquote {
+  border-left: 3px solid var(--color-neon-magenta);
+  padding-left: 1rem;
+  color: var(--color-phosphor-dim);
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.prose-retro table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.prose-retro th,
+.prose-retro td {
+  border: 1px solid var(--color-phosphor-dim);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.prose-retro th {
+  background: var(--color-terminal-panel);
+  color: var(--color-neon-cyan);
+}
+
+/* ── Scanline overlay ───────────────────────────────────── */
+.scanlines-overlay {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 50;
+}
+
+.crt-vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  pointer-events: none;
+  z-index: 49;
 }
