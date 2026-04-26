@@ -1,24 +1,28 @@
 import type { Metadata } from 'next'
-import { Share_Tech_Mono, VT323 } from 'next/font/google'
+import { Barlow_Condensed, Space_Grotesk, Share_Tech_Mono } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
 
-const shareTechMono = Share_Tech_Mono({
-  weight: '400',
-  variable: '--font-share-tech-mono',
+const barlowCondensed = Barlow_Condensed({
+  weight: ['600', '700', '800'],
+  variable: '--font-display',
   subsets: ['latin'],
 })
 
-const vt323 = VT323({
+const spaceGrotesk = Space_Grotesk({
+  weight: ['400', '500', '600'],
+  variable: '--font-body',
+  subsets: ['latin'],
+})
+
+const shareTechMono = Share_Tech_Mono({
   weight: '400',
-  variable: '--font-vt323',
+  variable: '--font-mono',
   subsets: ['latin'],
 })
 
 export const metadata: Metadata = {
   title: 'Sarthak Hingrajiya',
-  description: 'Personal portfolio — software engineer, builder, hacker.',
+  description: 'AI/ML Engineer — building intelligent systems.',
 }
 
 export default function RootLayout({
@@ -27,15 +31,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang="en"
-      className={`${shareTechMono.variable} ${vt323.variable} h-full`}
-    >
-      <body className="min-h-full flex flex-col bg-terminal-black text-phosphor crt-flicker">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+    <html lang="en" className={`${barlowCondensed.variable} ${spaceGrotesk.variable} ${shareTechMono.variable}`}>
+      <body style={{ background: '#fff', color: '#111' }}>{children}</body>
     </html>
   )
 }

@@ -1,11 +1,11 @@
-import Hero from "@/components/home/Hero";
-import QuickLinks from "@/components/home/QuickLinks";
+import { getAllPosts } from '@/src/lib/blog'
+import { fetchRepos } from '@/lib/github'
+import PortfolioPage from '@/components/home/PortfolioPage'
 
-export default function Home() {
-  return (
-    <main className="max-w-5xl mx-auto px-6">
-      <Hero />
-      <QuickLinks />
-    </main>
-  );
+export default async function Home() {
+  const [repos, posts] = await Promise.all([
+    fetchRepos().catch(() => []),
+    Promise.resolve(getAllPosts()),
+  ])
+  return <PortfolioPage repos={repos} posts={posts} />
 }
