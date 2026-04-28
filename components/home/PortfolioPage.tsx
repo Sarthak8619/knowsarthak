@@ -246,18 +246,48 @@ export default function PortfolioPage({ repos, posts }: Props) {
       return () => window.removeEventListener('resize', resize)
     })()
 
-    // ── Tagline rotation ─────────────────────────────────────
+    // ── Tagline typewriter ────────────────────────────────────
     const taglineEl = document.getElementById('tagline-text')
     let tagIdx = 0
-    const tagInterval = setInterval(() => {
-      if (!taglineEl) return
-      taglineEl.classList.add('swap')
-      setTimeout(() => {
-        tagIdx = (tagIdx + 1) % TAGLINE_PHRASES.length
-        taglineEl.textContent = TAGLINE_PHRASES[tagIdx]
-        taglineEl.classList.remove('swap')
-      }, 320)
-    }, 3200)
+    let twTimeout: ReturnType<typeof setTimeout> | null = null
+    let twCancelled = false
+
+    function typePhrase() {
+      if (twCancelled || !taglineEl) return
+      const phrase = TAGLINE_PHRASES[tagIdx]
+      let charIdx = 0
+      taglineEl.textContent = ''
+
+      function tick() {
+        if (twCancelled) return
+        charIdx++
+        taglineEl!.textContent = phrase.slice(0, charIdx)
+        if (charIdx < phrase.length) {
+          // slight random jitter makes it feel like real typing
+          twTimeout = setTimeout(tick, 55 + Math.random() * 45)
+        } else {
+          // hold the complete phrase, then fade out and advance
+          twTimeout = setTimeout(() => {
+            if (twCancelled || !taglineEl) return
+            taglineEl!.style.transition = 'opacity 0.25s ease'
+            taglineEl!.style.opacity = '0'
+            twTimeout = setTimeout(() => {
+              if (twCancelled || !taglineEl) return
+              tagIdx = (tagIdx + 1) % TAGLINE_PHRASES.length
+              taglineEl!.textContent = ''
+              taglineEl!.style.opacity = '1'
+              taglineEl!.style.transition = ''
+              twTimeout = setTimeout(typePhrase, 120)
+            }, 280)
+          }, 2600)
+        }
+      }
+
+      tick()
+    }
+
+    // Wait for the entrance animation to reveal the tagline before typing starts
+    twTimeout = setTimeout(typePhrase, 1050)
 
     // ── Landing text entrance ────────────────────────────────
     const landing = document.getElementById('landing')
@@ -381,7 +411,9 @@ export default function PortfolioPage({ repos, posts }: Props) {
       document.body.style.height = ''
       cancelAnimationFrame(rafId)
       cleanupGlobe()
-      clearInterval(tagInterval)
+      twCancelled = true
+      if (twTimeout) clearTimeout(twTimeout)
+      if (taglineEl) { taglineEl.style.opacity = ''; taglineEl.style.transition = '' }
       landTimeouts.forEach(clearTimeout)
       wrap.removeEventListener('scroll', onScroll)
       document.removeEventListener('keydown', onKeyDown)
@@ -463,7 +495,7 @@ export default function PortfolioPage({ repos, posts }: Props) {
             <div className="land-tag">
               <div className="tagline-wrap">
                 <span className="tag-prefix">&gt;_</span>
-                <span id="tagline-text">i_like_to_build.py</span>
+                <span id="tagline-text"></span>
               </div>
             </div>
 

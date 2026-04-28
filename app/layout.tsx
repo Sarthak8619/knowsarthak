@@ -32,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${barlowCondensed.variable} ${spaceGrotesk.variable} ${shareTechMono.variable}`}>
-      <body style={{ background: '#fff', color: '#111' }}>{children}</body>
+      <body style={{ background: '#f2f2f2', color: '#111' }}>{children}</body>
     </html>
   )
 }
