@@ -223,9 +223,9 @@ export default function PortfolioPage({ repos, posts }: Props) {
           ctx.fill()
         })
 
-        // Soft white fade in the center so globe doesn't visually crowd the text
+        // Soft fade in the center to keep text zone clean
         const vg = ctx.createRadialGradient(W / 2, H / 2, R * 0.18, W / 2, H / 2, R * 0.72)
-        vg.addColorStop(0, 'rgba(255,255,255,0.55)')
+        vg.addColorStop(0, 'rgba(255,255,255,0.62)')
         vg.addColorStop(1, 'rgba(255,255,255,0)')
         ctx.fillStyle = vg
         ctx.fillRect(0, 0, W, H)
@@ -424,6 +424,7 @@ export default function PortfolioPage({ repos, posts }: Props) {
         {/* 00 LANDING — full viewport, no navbar gap */}
         <section className="section" id="landing">
           <canvas id="neural-canvas"></canvas>
+
           <div className="land-inner">
             <div className="land-pre" style={{
               fontFamily: F_BODY,
@@ -676,6 +677,7 @@ export default function PortfolioPage({ repos, posts }: Props) {
           </div>
         </section>
 
+        {/* 05 QUOTES */}
         {/* 05 BLOG */}
         <section className="section" id="blog" style={{ paddingTop: '56px' }}>
           <span className="ghost">05</span>
